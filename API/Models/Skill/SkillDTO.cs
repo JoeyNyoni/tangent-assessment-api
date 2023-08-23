@@ -8,6 +8,6 @@ namespace API.Models.Skill
         public string Name { get; set; }
         public int YearsExperienced { get; set; }
         public string Seniority { get; set; }
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
     }
 }

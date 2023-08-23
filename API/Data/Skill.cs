@@ -10,7 +10,6 @@ namespace API.Data
         public string Seniority { get; set; }
 
         [ForeignKey(nameof(EmployeeId))]
-        public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+        public string EmployeeId { get; set; }
     }
 }

@@ -46,12 +46,32 @@ namespace API.Controllers
                 return Problem("Entity 'API.Employees' is null");
             }
 
-            employee.Id = AssignNewID();
+            try
+            {
+                employee.Id = AssignNewID();
 
-            await _context.Employees.AddAsync(employee);
-            await _context.SaveChangesAsync();
+                List<Skill> empSkills = new List<Skill>();
+                
+                await _context.Employees.AddAsync(employee);
+                
+                foreach(var skill in employee.Skills)
+                {
+                    var newSkill = _mapper.Map<Skill>(skill);
+                    empSkills.Add(newSkill);
+                }
 
-            return CreatedAtAction("GetEmployee", new { id = employee.Id }, employee);
+                foreach (var skill in empSkills)
+                {
+                    await _context.Skills.AddAsync(skill);
+                }
+
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("CreateEmployee", new { id = employee.Id }, employee);
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // PUT api/<EmployeeController>/5
