@@ -26,8 +26,8 @@ namespace API.Controllers
         {
             try
             {
-                var employees = await _context.Employees.ToListAsync();
-                var records = _mapper.Map<Employee>(employees);
+                var employees = await _context.Employees.Include("Skills").ToListAsync();
+                var records = _mapper.Map<List<GetEmployeeDTO>>(employees);
                 return Ok(records);
             } catch (Exception ex)
             {

@@ -5,7 +5,6 @@ namespace API.Models.Employee
 {
     public abstract class EmployeeDTO
     {
-        public string Id { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]
